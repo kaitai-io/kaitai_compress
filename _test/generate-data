@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for I in uncompressed/*.dat; do
+	BASE=$(basename "$I" | sed 's/\.dat$//')
+	lz4 -9 <$I >compressed/$BASE.lz4
+	ruby -e 'require "zlib"; $stdout.write(Zlib::deflate($stdin.read))' <$I >compressed/$BASE.zlib
+done

@@ -1,0 +1,2 @@
+#!/bin/sh
+PYTHONPATH=compiled/python:../python python3 ./test-python.py

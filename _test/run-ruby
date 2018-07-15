@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'rspec'
+
+$LOAD_PATH << 'compiled/ruby'
+$LOAD_PATH << '../ruby/lib'
+
+require 'kaitai/compress/lz4'
+require 'kaitai/compress/zlib'
+
+require 'test_lz4'
+require 'test_zlib'
+
+Dir.glob('uncompressed/*.dat').each { |uncompressed_fn|
+  name = File.basename(uncompressed_fn).gsub(/.dat$/, '')
+
+  uncompressed_data = File.binread(uncompressed_fn)
+
+  context 'lz4' do
+    it "parses #{name}" do
+      obj = TestLz4.from_file("compressed/#{name}.lz4")
+      expect(obj.body).to eq uncompressed_data
+    end
+  end
+
+  context 'zlib' do
+    it "parses #{name}" do
+      obj = TestZlib.from_file("compressed/#{name}.zlib")
+      expect(obj.body).to eq uncompressed_data
+    end
+  end
+}
