@@ -3,6 +3,7 @@
 This package provides custom processing routines to deal with
 compressed binary data. Implementations are provided for:
 
+* JavaScript
 * Python
 * Ruby
 
