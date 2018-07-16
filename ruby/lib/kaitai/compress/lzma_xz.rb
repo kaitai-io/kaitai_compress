@@ -1,3 +1,4 @@
+# RubyGems: ruby-xz >= 1
 require 'xz'
 
 module Kaitai
