@@ -9,46 +9,47 @@ compressed binary data. Implementations are provided for:
 Note that most implementations are actually wrappers which route calls
 to well-known implementations for that languages.
 
-The following algorithms are supported:
+## Usage
 
-## LZ4
+To use these routines, one should add processing instruction into
+.ksy file and then add relevant language-specific implementations
+into one's project.
 
-[LZ4](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm))
-compression, conforming to [LZ4 block
-specification](https://lz4.github.io/lz4/lz4_Block_format.md):
+### In .ksy file
 
-```yaml
-process: kaitai.compress.lz4
+To use it, just invoke the following in your .ksy:
+
+```
+process: kaitai.compress.PROCESS_NAME(ARGUMENTS)
 ```
 
-## LZMA
+where `PROCESS_NAME` and `ARGUMENTS` should be as described in the table below.
 
-[LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm)
-compression is supported in 3 formats:
-
-### Raw LZMA stream
+Fully working example:
 
 ```yaml
-process: kaitai.compress.lzma_raw
+meta:
+  id: example_lz4
+seq:
+  - id: buf
+    size: 50
+    process: kaitai.compress.lz4
 ```
 
-### Legacy .lzma file format (AKA alone)
+### In Python
 
-```yaml
-process: kaitai.compress.lzma_lzma
-```
+Add [python/](https://github.com/kaitai-io/kaitai_compress/tree/master/python) to one's `PYTHONPATH`.
 
-### .xz file format
+### In Ruby
 
-```yaml
-process: kaitai.compress.lzma_xz
-```
+Add [ruby/lib/](https://github.com/kaitai-io/kaitai_compress/tree/master/ruby/lib/) to one's `$LOAD_PATH`.
 
-## DEFLATE (AKA zlib) compression
+## Supported algorithms
 
-[DEFLATE streams](https://en.wikipedia.org/wiki/DEFLATE), as defined
-in [RFC 1951](https://tools.ietf.org/html/rfc1951).
-
-```yaml
-process: kaitai.compress.zlib
-```
+| Algorithm | Process name | Arguments | Conforming |
+| - | - | - | - |
+| [LZ4](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) | `lz4` | None | [LZ4 block specification](https://lz4.github.io/lz4/lz4_Block_format.md) |
+| [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_raw` | None | Raw LZMA stream |
+| [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_lzma` | None | Legacy .lzma file format (AKA alone) |
+| [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_xz` | None | .xz file format |
+| [DEFLATE](https://en.wikipedia.org/wiki/DEFLATE) (AKA zlib) | `zlib` | None | [RFC 1951](https://tools.ietf.org/html/rfc1951) |
