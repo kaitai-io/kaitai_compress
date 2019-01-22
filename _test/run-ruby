@@ -41,6 +41,13 @@ Dir.glob('uncompressed/*.dat').each { |uncompressed_fn|
     end
   end
 
+  context 'lzma_lzma' do
+    it "parses #{name}" do
+      obj = TestLzmaLzma.from_file("compressed/#{name}.lzma")
+      expect(obj.body).to eq uncompressed_data
+    end
+  end
+
   context 'zstd' do
     it "parses #{name}" do
       obj = TestZstd.from_file("compressed/#{name}.zst")
