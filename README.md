@@ -47,10 +47,11 @@ Add [ruby/lib/](https://github.com/kaitai-io/kaitai_compress/tree/master/ruby/li
 
 ## Supported algorithms
 
-| Algorithm | Process name | Arguments | Conforming |
-| - | - | - | - |
-| [LZ4](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) | `lz4` | None | [LZ4 block specification](https://lz4.github.io/lz4/lz4_Block_format.md) |
-| [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_raw` | None | Raw LZMA stream |
-| [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_lzma` | None | Legacy .lzma file format (AKA alone) |
-| [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_xz` | None | .xz file format |
-| [DEFLATE](https://en.wikipedia.org/wiki/DEFLATE) (AKA zlib) | `zlib` | None | [RFC 1951](https://tools.ietf.org/html/rfc1951) |
+| Algorithm | Process name | Arguments | Conforming | Test file extension |
+| - | - | - | - | - |
+| [LZ4](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) | `lz4` | None | [LZ4 block specification](https://lz4.github.io/lz4/lz4_Block_format.md) | lz4 |
+| [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_raw` | None | Raw LZMA stream | lzma_raw |
+| [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_lzma` | None | Legacy .lzma file format (AKA alone) | lzma |
+| [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_xz` | None | .xz file format | xz |
+| [DEFLATE](https://en.wikipedia.org/wiki/DEFLATE) (AKA zlib) | `zlib` | None | [RFC 1951](https://tools.ietf.org/html/rfc1951) | zlib |
+| [zstd](https://zstd.net) (AKA zstandard) | `zstd` | None | [Spec & ref implementation](http://facebook.github.io/zstd/zstd_manual.html) | zst |
