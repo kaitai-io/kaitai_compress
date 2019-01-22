@@ -13,7 +13,7 @@
         Lz4.prototype.decode = function(src) {
             return RealLZ4.decode(src);
         }
-        
+
         return Lz4;
     })();
     return Lz4;
