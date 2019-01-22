@@ -6,12 +6,14 @@ $LOAD_PATH << 'compiled/ruby'
 $LOAD_PATH << '../ruby/lib'
 
 require 'kaitai/compress/lz4'
-require 'kaitai/compress/zlib'
 require 'kaitai/compress/lzma_xz'
+require 'kaitai/compress/zlib'
+require 'kaitai/compress/zstd'
 
 require 'test_lz4'
-require 'test_zlib'
 require 'test_lzma_xz'
+require 'test_zlib'
+require 'test_zstd'
 
 Dir.glob('uncompressed/*.dat').each { |uncompressed_fn|
   name = File.basename(uncompressed_fn).gsub(/.dat$/, '')
@@ -35,6 +37,13 @@ Dir.glob('uncompressed/*.dat').each { |uncompressed_fn|
   context 'lzma_xz' do
     it "parses #{name}" do
       obj = TestLzmaXz.from_file("compressed/#{name}.xz")
+      expect(obj.body).to eq uncompressed_data
+    end
+  end
+
+  context 'zstd' do
+    it "parses #{name}" do
+      obj = TestZstd.from_file("compressed/#{name}.zst")
       expect(obj.body).to eq uncompressed_data
     end
   end
