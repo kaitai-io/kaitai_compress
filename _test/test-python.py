@@ -18,17 +18,16 @@ for uncompressed_fn in glob('uncompressed/*.dat'):
     uncompressed_data = f.read()
     f.close()
 
-    obj = TestLz4.from_file('compressed/%s.lz4' % (name))
-    print(obj.body == uncompressed_data)
+    algs = [
+        ('lz4', TestLz4),
+        ('zlib', TestZlib),
+        ('lzma', TestLzmaLzma),
+        ('xz', TestLzmaXz),
+    ]
 
-    obj = TestZlib.from_file('compressed/%s.zlib' % (name))
-    print(obj.body == uncompressed_data)
+    for alg in algs:
+        ext = alg[0]
+        test_class = alg[1]
 
-#    obj = TestLzmaRaw.from_file('compressed/%s.lzma_raw' % (name))
-#    print(obj.body == uncompressed_data)
-
-    obj = TestLzmaLzma.from_file('compressed/%s.lzma' % (name))
-    print(obj.body == uncompressed_data)
-
-    obj = TestLzmaXz.from_file('compressed/%s.xz' % (name))
-    print(obj.body == uncompressed_data)
+        obj = test_class.from_file('compressed/%s.%s' % (name, ext))
+        print(obj.body == uncompressed_data)
