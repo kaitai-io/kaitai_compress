@@ -37,6 +37,10 @@ seq:
     process: kaitai.compress.lz4
 ```
 
+### In JavaScript / Node
+
+Add [javascript/](https://github.com/kaitai-io/kaitai_compress/tree/master/javascript) to one's `NODE_PATH`.
+
 ### In Python
 
 Add [python/](https://github.com/kaitai-io/kaitai_compress/tree/master/python) to one's `PYTHONPATH`.
