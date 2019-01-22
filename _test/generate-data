@@ -17,4 +17,7 @@ for I in uncompressed/*.dat; do
 
 	echo "$BASE.lzma_raw"
 	xz --format=raw <$I >compressed/$BASE.lzma_raw
+
+	echo "$BASE.zst"
+	zstd <$I >compressed/$BASE.zst
 done
