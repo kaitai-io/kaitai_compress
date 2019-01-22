@@ -19,15 +19,16 @@ for uncompressed_fn in glob('uncompressed/*.dat'):
     f.close()
 
     algs = [
-        ('lz4', TestLz4),
-        ('zlib', TestZlib),
-        ('lzma', TestLzmaLzma),
-        ('xz', TestLzmaXz),
+        (TestLz4, 'lz4'),
+        (TestLzmaLzma, 'lzma'),
+#        (TestLzmaRaw, 'lzma_raw'), # requires filters= to be set
+        (TestLzmaXz, 'xz'),
+        (TestZlib, 'zlib'),
     ]
 
     for alg in algs:
-        ext = alg[0]
-        test_class = alg[1]
+        test_class = alg[0]
+        ext = alg[1]
 
         obj = test_class.from_file('compressed/%s.%s' % (name, ext))
         print(obj.body == uncompressed_data)
