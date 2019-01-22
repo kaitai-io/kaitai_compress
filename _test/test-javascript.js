@@ -20,6 +20,8 @@ function testData(parser, dataName, dataExt) {
 
 let tests = {
     "lz4": require("TestLz4"),
+    "lzma": require("TestLzmaLzma"),
+    "xz": require("TestLzmaXz"),
 }
 
 for (var testName in tests) {

@@ -2,7 +2,8 @@
   "name": "kaitai_compress",
   "description": "Compression algorithms processing routines, compatible with Kaitai Struct",
   "dependencies": {
-    "lz4": "^0"
+    "lz4": "^0",
+    "lzma": "^2"
   },
   "devDependencies": {
     "kaitai-struct": "next",
