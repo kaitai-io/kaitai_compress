@@ -1,0 +1,36 @@
+#!/bin/sh -ef
+
+DOCKER_ENGINE=podman
+
+if [ $# -ne 1 ]; then
+	echo "Usage: $0 <full-target>/<variety>"
+	exit 1
+fi
+
+FULL_TARGET=$(echo "$1" | cut -d/ -f1)
+VARIETY=$(echo "$1" | cut -d/ -f2)
+
+case "$FULL_TARGET" in
+cpp_stl_11)
+	TARGET=cpp_stl
+	SUBTARGET=_11
+	;;
+cpp_stl_98)
+	TARGET=cpp_stl
+	SUBTARGET=_98
+	;;
+*)
+	TARGET="$FULL_TARGET"
+	SUBTARGET=''
+	;;
+esac
+
+cd $(dirname "$0")/../..
+KAITAI_COMPRESS_DIR="$(pwd)"
+
+echo "KAITAI_COMPRESS_DIR=$KAITAI_COMPRESS_DIR"
+
+#docker run -v "$TESTS_DIR:/tests" -v "$RUNTIME_DIR/$TARGET:/runtime/$TARGET" -it --entrypoint bash ks-test-$TARGET$SUBTARGET-$VARIETY
+$DOCKER_ENGINE run --rm \
+	-v "$KAITAI_COMPRESS_DIR:/kaitai_compress" \
+	kaitai-compress-test-$TARGET$SUBTARGET-$VARIETY \

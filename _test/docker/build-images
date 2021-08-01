@@ -1,0 +1,23 @@
+#!/bin/sh -ef
+
+DOCKER_ENGINE=podman
+
+build_image()
+{
+	local full_target="$1"
+	local variety="$2"
+
+#	time $DOCKER_ENGINE build --no-cache -t "kaitai-compress-test-$full_target-$variety" "$full_target/$variety"
+	time $DOCKER_ENGINE build -t "kaitai-compress-test-$full_target-$variety" "$full_target/$variety"
+}
+
+#build_image base ubuntu_14.04
+build_image base ubuntu_18.04
+#build_image cpp_stl_11 gcc4.8_linux
+#build_image cpp_stl_11 gcc7.5_linux
+build_image ruby 2.5
+#build_image python 2.7
+build_image python 3.6
+#build_image lua 5.3
+#build_image csharp netcore3.0_linux
+#build_image csharp mono5.18_linux
