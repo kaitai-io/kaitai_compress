@@ -1,6 +1,8 @@
 #!/bin/sh -ef
 
 DOCKER_ENGINE=podman
+EXTRA_ARGS=
+#EXTRA_ARGS="-it --entrypoint bash"
 
 if [ $# -ne 1 ]; then
 	echo "Usage: $0 <full-target>/<variety>"
@@ -30,7 +32,7 @@ KAITAI_COMPRESS_DIR="$(pwd)"
 
 echo "KAITAI_COMPRESS_DIR=$KAITAI_COMPRESS_DIR"
 
-#docker run -v "$TESTS_DIR:/tests" -v "$RUNTIME_DIR/$TARGET:/runtime/$TARGET" -it --entrypoint bash ks-test-$TARGET$SUBTARGET-$VARIETY
 $DOCKER_ENGINE run --rm \
 	-v "$KAITAI_COMPRESS_DIR:/kaitai_compress" \
+	$EXTRA_ARGS \
 	kaitai-compress-test-$TARGET$SUBTARGET-$VARIETY \
