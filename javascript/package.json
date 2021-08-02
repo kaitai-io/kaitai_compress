@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "kaitai-struct": "next",
-    "mocha": "^5"
+    "mocha": "^9.0.3"
   },
   "repository": {
     "type": "git",
