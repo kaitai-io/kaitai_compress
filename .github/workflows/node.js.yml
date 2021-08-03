@@ -28,12 +28,13 @@ jobs:
           curl -fsSL -O https://github.com/kaitai-io/kaitai_struct_compiler/releases/download/0.9/kaitai-struct-compiler_0.9_all.deb
           sha256sum --check --warn .github/checksums
           sudo apt-get install ./kaitai-struct-compiler_0.9_all.deb
-          sudo apt-get install --no-install-recommends -y \
-            kaitai-struct-compiler default-jre-headless
           ksc --version
+      - name: Compile ksy to target languages
+        working-directory: _test
+        run: ./compile-ksy
       - name: Initialize npm
         working-directory: javascript
-        run: npm ci
+        run: npm install
       - name: Run tests
         working-directory: _test
         run: ./run-javascript
