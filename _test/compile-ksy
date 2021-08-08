@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
-for TARGET in javascript python ruby; do
-	ksc --verbose=all -t $TARGET --outdir=compiled/$TARGET ksy/*.ksy
-done
+ksc \
+	--verbose=file \
+	-t javascript \
+	-t python\
+	-t ruby \
+	--outdir=compiled \
+	ksy/*.ksy
