@@ -20,4 +20,7 @@ for I in uncompressed/*.dat; do
 
 	echo "$BASE.zst"
 	zstd <$I >compressed/$BASE.zst
+
+	echo "$BASE.brotli"
+	brotli <$I -o compressed/$BASE.brotli
 done
