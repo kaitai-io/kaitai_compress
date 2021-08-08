@@ -21,6 +21,7 @@ RUN \
 
 # Install all compression modules
 RUN apt-get install -y \
+	python3-brotli \
 	python3-lz4
 
 COPY requirements.txt /

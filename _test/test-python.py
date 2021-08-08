@@ -9,6 +9,7 @@ from test_lzma_lzma import TestLzmaLzma
 from test_lzma_raw import TestLzmaRaw
 from test_lzma_xz import TestLzmaXz
 from test_zlib import TestZlib
+from test_brotli import TestBrotli
 
 for uncompressed_fn in glob('uncompressed/*.dat'):
     name = re.sub(r'.dat$', '', basename(uncompressed_fn))
@@ -24,6 +25,7 @@ for uncompressed_fn in glob('uncompressed/*.dat'):
 #        (TestLzmaRaw, 'lzma_raw'), # requires filters= to be set
         (TestLzmaXz, 'xz'),
         (TestZlib, 'zlib'),
+        (TestBrotli, 'brotli'),
     ]
 
     for alg in algs:
