@@ -23,4 +23,13 @@ for I in uncompressed/*.dat; do
 
 	echo "$BASE.br"
 	brotli <$I -o compressed/$BASE.br
+
+	echo "$BASE.raw.sz"
+	python3 -c "import sys, snappy; from pathlib import Path; i = Path(sys.argv[1]); o = Path(sys.argv[2]); o.write_bytes(snappy.compress(i.read_bytes()));" $I compressed/$BASE.raw.sz
+
+	echo "$BASE.framing2.sz"
+	python3 -c "import sys, snappy; from pathlib import Path; i = Path(sys.argv[1]).open('rb'); o = Path(sys.argv[2]).open('wb'); snappy.stream_compress(i, o); i.close(); o.close();" $I compressed/$BASE.framing2.sz
+
+	echo "$BASE.hadoop.sz"
+	python3 -c "import sys, snappy; from pathlib import Path; i = Path(sys.argv[1]).open('rb'); o = Path(sys.argv[2]).open('wb'); snappy.hadoop_stream_compress(i, o); i.close(); o.close();" $I compressed/$BASE.hadoop.sz
 done
