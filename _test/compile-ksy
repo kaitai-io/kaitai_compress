@@ -1,3 +1,9 @@
-#!/bin/sh
+#!/bin/sh -e
 
-ksc -t all --outdir=compiled ksy/*.ksy
+ksc \
+	--verbose=file \
+	-t javascript \
+	-t python\
+	-t ruby \
+	--outdir=compiled \
+	ksy/*.ksy
