@@ -1,8 +1,11 @@
 #!/bin/sh -ef
 
 DOCKER_ENGINE=podman
-EXTRA_ARGS=
-#EXTRA_ARGS="-it --entrypoint bash"
+# Necessary on SELinux-enabled systems
+EXTRA_ARGS="--security-opt label=disable"
+
+# Uncomment to enter container interactively for debugging purposes
+#EXTRA_ARGS="-it --entrypoint bash --security-opt label=disable"
 
 if [ $# -ne 1 ]; then
 	echo "Usage: $0 <full-target>/<variety>"
