@@ -21,3 +21,4 @@ build_image python 3.6
 #build_image lua 5.3
 #build_image csharp netcore3.0_linux
 #build_image csharp mono5.18_linux
+build_image javascript nodejs14
