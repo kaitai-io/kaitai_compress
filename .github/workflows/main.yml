@@ -1,0 +1,14 @@
+name: kaitai_compress
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+      - name: Test on javascript/nodejs14
+        uses: _test/docker/javascript/nodejs14
+        id: javascript_nodejs14
