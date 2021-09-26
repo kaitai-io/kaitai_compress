@@ -9,6 +9,10 @@ jobs:
       - uses: actions/checkout@v1
         with:
           submodules: true
+      - name: Build all Docker images
+        run: |
+          cd _test/docker
+          ./build-images
       - name: Test on javascript/nodejs14
         uses: ./_test/docker/javascript/nodejs14
         id: javascript_nodejs14
