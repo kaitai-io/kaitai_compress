@@ -13,6 +13,18 @@ jobs:
         run: |
           cd _test/docker
           ./build-images
+
       - name: Test on javascript/nodejs14
-        uses: ./_test/docker/javascript/nodejs14
-        id: javascript_nodejs14
+        run: |
+          cd _test/docker
+          ./dockerci javascript/nodejs14
+
+      - name: Test on python/3.6
+        run: |
+          cd _test/docker
+          ./dockerci python/3.6
+
+      - name: Test on ruby/2.5
+        run: |
+          cd _test/docker
+          ./dockerci ruby/2.5
