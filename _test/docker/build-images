@@ -7,6 +7,12 @@ build_image()
 	local full_target="$1"
 	local variety="$2"
 
+	# Dockerfiles can't reference code outside of its immediate dir and subdirs.
+	# Copy all the prerequisites there.
+	if [ "$full_target" = javascript ]; then
+		cp ../../javascript/package.json "$full_target/$variety"
+	fi
+
 #	time $DOCKER_ENGINE build --no-cache -t "kaitai-compress-test-$full_target-$variety" "$full_target/$variety"
 	time $DOCKER_ENGINE build -t "kaitai-compress-test-$full_target-$variety" "$full_target/$variety"
 }
