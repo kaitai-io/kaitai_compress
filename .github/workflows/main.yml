@@ -9,6 +9,16 @@ jobs:
       - uses: actions/checkout@v1
         with:
           submodules: true
+      - name: Install kaitai-struct-compiler
+        run: |
+          sudo apt-get update
+          curl -fsSL -O https://github.com/kaitai-io/kaitai_struct_compiler/releases/download/0.9/kaitai-struct-compiler_0.9_all.deb
+          sudo apt-get install ./kaitai-struct-compiler_0.9_all.deb
+          ksc --version
+      - name: Compile ksy into target languages
+        run: |
+          cd _test
+          ./compile-ksy
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Build and export
@@ -17,12 +27,12 @@ jobs:
           context: _test/docker/base/ubuntu_18.04
           file: _test/docker/base/ubuntu_18.04/Dockerfile
           tags: name/kaitai-compress-test-base-ubuntu_18.04:latest
-          outputs: type=oci,dest=/tmp/image.tar
+          outputs: type=oci,dest=/tmp/kaitai-compress-test-base-ubuntu_18.04.tar
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: app
-          path: /tmp/image.tar
+          name: kaitai-compress-test-base-ubuntu_18.04
+          path: /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
   build:
     runs-on: ubuntu-latest
     steps:
