@@ -12,19 +12,19 @@ jobs:
       - name: Build all Docker images
         run: |
           cd _test/docker
-          ./build-images
+          DOCKER_ENGINE=docker ./build-images
 
       - name: Test on javascript/nodejs14
         run: |
           cd _test/docker
-          ./dockerci javascript/nodejs14
+          DOCKER_ENGINE=docker ./dockerci javascript/nodejs14
 
       - name: Test on python/3.6
         run: |
           cd _test/docker
-          ./dockerci python/3.6
+          DOCKER_ENGINE=docker ./dockerci python/3.6
 
       - name: Test on ruby/2.5
         run: |
           cd _test/docker
-          ./dockerci ruby/2.5
+          DOCKER_ENGINE=docker ./dockerci ruby/2.5

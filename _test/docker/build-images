@@ -1,6 +1,6 @@
 #!/bin/sh -ef
 
-DOCKER_ENGINE=podman
+DOCKER_ENGINE="${DOCKER_ENGINE:-podman}"
 
 build_image()
 {
