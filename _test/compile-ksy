@@ -1,3 +1,10 @@
 #!/bin/sh
 
-ksc -t all --outdir=compiled ksy/*.ksy
+# Can't use "-t all" due to ksc 0.9 PerlCompiler having a bug resulting in an unrecoverable exception
+ksc \
+	-t javascript \
+	-t python \
+	-t ruby \
+	--ksc-exceptions \
+	--outdir=compiled \
+	ksy/*.ksy
