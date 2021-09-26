@@ -16,7 +16,7 @@ ENV NVM_DIR /root/.nvm
 ENV NODE_VERSION 14
 
 RUN \
-	curl -sL https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash && \
+	curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash && \
 	. $HOME/.nvm/nvm.sh && \
 	nvm install --latest-npm "$NODE_VERSION" && \
 	nvm alias default "$NODE_VERSION" && \
