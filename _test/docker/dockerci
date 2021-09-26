@@ -1,19 +1,35 @@
 #!/bin/sh -ef
 
-DOCKER_ENGINE=podman
+DOCKER_ENGINE="${DOCKER_ENGINE:-podman}"
+
 # Necessary on SELinux-enabled systems
 EXTRA_ARGS="--security-opt label=disable"
 
-# Uncomment to enter container interactively for debugging purposes
-#EXTRA_ARGS="-it --entrypoint bash --security-opt label=disable"
-
-if [ $# -ne 1 ]; then
-	echo "Usage: $0 <full-target>/<variety>"
+print_usage()
+{
+	echo "Usage: $0 [-i] <full-target>/<variety>"
+	echo
+	echo "  -i                         enter container interactively, running bash"
 	exit 1
+}
+
+if [ $# -gt 2 ]; then
+	print_usage
+elif [ $# -eq 2 ]; then
+	if [ "$1" = "-i" ]; then
+		EXTRA_ARGS="-it --entrypoint bash --security-opt label=disable"
+		TARGET_DIR="$2"
+	else
+		print_usage
+	fi
+elif [ $# -eq 1 ]; then
+	TARGET_DIR="$1"
+else
+	print_usage
 fi
 
-FULL_TARGET=$(echo "$1" | cut -d/ -f1)
-VARIETY=$(echo "$1" | cut -d/ -f2)
+FULL_TARGET=$(echo "$TARGET_DIR" | cut -d/ -f1)
+VARIETY=$(echo "$TARGET_DIR" | cut -d/ -f2)
 
 case "$FULL_TARGET" in
 cpp_stl_11)
