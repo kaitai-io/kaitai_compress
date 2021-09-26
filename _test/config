@@ -1,1 +1,1 @@
-JAVASCRIPT_MODULES_DIR=../javascript/node_modules
+JAVASCRIPT_MODULES_DIR="${JAVASCRIPT_MODULES_DIR:-../javascript/node_modules}"

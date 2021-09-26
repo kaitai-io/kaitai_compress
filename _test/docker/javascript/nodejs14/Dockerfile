@@ -4,8 +4,13 @@
 
 FROM kaitai-compress-test-base-ubuntu_18.04:latest
 
-# Get curl
-RUN apt-get install -y curl
+# curl is needed to download install.sh
+# make, g++, python3 is required by npm modules install (node-gyp)
+RUN apt-get install -y \
+	curl \
+	make \
+        g++ \
+	python3
 
 # Ubuntu nodejs/npm packages are, sadly, way too old and broken.
 
@@ -31,9 +36,10 @@ RUN \
 	nodejs --version && \
 	nodejs --version | grep -q '^v14\.' && echo "Version check OK" || false
 
-# Compression routines dependencies
+# Compression routines dependencies - generates /node_modules in container root
 COPY package.json /
-RUN pwd && ls -al && npm -g install
+RUN pwd && ls -al && npm install
 
+ENV JAVASCRIPT_MODULES_DIR /node_modules
 WORKDIR /kaitai_compress/_test
 ENTRYPOINT ["./run-javascript"]
