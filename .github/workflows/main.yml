@@ -10,5 +10,5 @@ jobs:
         with:
           submodules: true
       - name: Test on javascript/nodejs14
-        uses: ../../_test/docker/javascript/nodejs14
+        uses: ./_test/docker/javascript/nodejs14
         id: javascript_nodejs14
