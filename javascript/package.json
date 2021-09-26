@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaitai-io/kaitai_struct_webide.git"
+    "url": "git+https://github.com/kaitai-io/kaitai_compress.git"
   },
   "author": "Kaitai team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kaitai-io/kaitai_struct/issues"
+    "url": "https://github.com/kaitai-io/kaitai_compress/issues"
   },
   "homepage": "https://github.com/kaitai-io/kaitai_compress#readme"
 }
