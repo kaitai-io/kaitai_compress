@@ -3,6 +3,26 @@ name: kaitai_compress
 on: [push]
 
 jobs:
+  base_container_build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and export
+        uses: docker/build-push-action@v2
+        with:
+          context: _test/docker/base/ubuntu_18.04
+          file: _test/docker/base/ubuntu_18.04/Dockerfile
+          tags: name/kaitai-compress-test-base-ubuntu_18.04:latest
+          outputs: type=oci,dest=/tmp/image.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: /tmp/image.tar
   build:
     runs-on: ubuntu-latest
     steps:
