@@ -2,9 +2,10 @@
 
 # Can't use "-t all" due to ksc 0.9 PerlCompiler having a bug resulting in an unrecoverable exception
 ksc \
+	--verbose file \
 	-t javascript \
 	-t python \
 	-t ruby \
 	--ksc-exceptions \
-	--outdir=compiled \
+	--outdir compiled \
 	ksy/*.ksy
