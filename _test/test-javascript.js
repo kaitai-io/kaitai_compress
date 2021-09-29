@@ -19,6 +19,7 @@ function testData(parser, dataName, dataExt) {
 }
 
 let tests = {
+    "brotli": require("TestBrotli"),
     "lz4": require("TestLz4"),
     "lzma": require("TestLzmaLzma"),
     "xz": require("TestLzmaXz"),
@@ -30,4 +31,3 @@ for (var testName in tests) {
     testData(parser, "25k_uuids", testName);
     testData(parser, "ascii_text", testName);
 }
-
