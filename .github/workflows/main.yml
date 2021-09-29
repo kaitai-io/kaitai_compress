@@ -76,7 +76,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: base-ubuntu_18.04
-          path: /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
+          path: /tmp # downloads /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
       - name: Load base-ubuntu_18.04
         run: docker load --input /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
       - name: Build Docker image for javascript/nodejs14
