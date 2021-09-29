@@ -22,6 +22,7 @@ RUN apt-get install -y \
 RUN gem install --no-rdoc --no-ri extlz4
 RUN gem install --no-rdoc --no-ri ruby-xz --version '>= 1'
 RUN gem install --no-rdoc --no-ri zstd-ruby
+RUN gem install --no-rdoc --no-ri brotli
 
 # Check ruby version
 RUN \

@@ -53,6 +53,7 @@ Add [ruby/lib/](https://github.com/kaitai-io/kaitai_compress/tree/master/ruby/li
 
 | Algorithm | Process name | Arguments | Conforming | Test file extension |
 | - | - | - | - | - |
+| [Brotli](https://en.wikipedia.org/wiki/Brotli) | `brotli` | None | [RFC 7932](https://datatracker.ietf.org/doc/html/rfc7932) | br |
 | [LZ4](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) | `lz4` | None | [LZ4 block specification](https://lz4.github.io/lz4/lz4_Block_format.md) | lz4 |
 | [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_raw` | None | Raw LZMA stream | lzma_raw |
 | [LZMA](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Markov_chain_algorithm) | `lzma_lzma` | None | Legacy .lzma file format (AKA alone) | lzma |

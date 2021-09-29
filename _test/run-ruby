@@ -6,6 +6,7 @@ $LOAD_PATH << 'compiled/ruby'
 $LOAD_PATH << '../ruby/lib'
 
 ALGORITHMS = [
+  {:alg_name => 'brotli', :ext => 'br', :class_name => 'TestBrotli'},
   {:alg_name => 'lz4', :ext => 'lz4', :class_name => 'TestLz4'},
   {:alg_name => 'lzma_lzma', :ext => 'lzma', :class_name => 'TestLzmaLzma'},
   {:alg_name => 'lzma_xz', :ext => 'xz', :class_name => 'TestLzmaXz'},
