@@ -37,7 +37,7 @@ jobs:
       - name: Upload base-ubuntu_18.04
         uses: actions/upload-artifact@v2
         with:
-          name: kaitai-compress-test-base-ubuntu_18.04
+          name: base-ubuntu_18.04
           path: /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
   build:
     runs-on: ubuntu-latest
@@ -72,14 +72,16 @@ jobs:
         with:
           name: targets
           path: _test/compiled
-      - name: Download target language compilation results
+      - name: Download base-ubuntu_18.04
         uses: actions/download-artifact@v2
         with:
-          name: targets
-          path: _test/compiled
-      - name: Build all Docker images
+          name: base-ubuntu_18.04
+          path: /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
+      - name: Load base-ubuntu_18.04
+        run: docker load --input /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
+      - name: Build Docker image for javascript/nodejs14
         working-directory: _test/docker
-        run: DOCKER_ENGINE=docker ./build-images
+        run: DOCKER_ENGINE=docker ./build-images javascript/nodejs14
       - name: Test on javascript/nodejs14
         working-directory: _test/docker
         run: DOCKER_ENGINE=docker ./dockerci javascript/nodejs14

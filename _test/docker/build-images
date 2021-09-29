@@ -17,14 +17,28 @@ build_image()
 	time $DOCKER_ENGINE build -t "kaitai-compress-test-$full_target-$variety" "$full_target/$variety"
 }
 
-#build_image base ubuntu_14.04
-build_image base ubuntu_18.04
-#build_image cpp_stl_11 gcc4.8_linux
-#build_image cpp_stl_11 gcc7.5_linux
-build_image ruby 2.5
-#build_image python 2.7
-build_image python 3.6
-#build_image lua 5.3
-#build_image csharp netcore3.0_linux
-#build_image csharp mono5.18_linux
-build_image javascript nodejs14
+if [ $# -gt 0 ]; then
+    # If we have some arguments on the command line, build exactly
+    # these listed images
+
+    for TARGET_DIR in $@; do
+        echo "build-images: building $TARGET_DIR..."
+        FULL_TARGET=$(echo "$TARGET_DIR" | cut -d/ -f1)
+        VARIETY=$(echo "$TARGET_DIR" | cut -d/ -f2)
+        build_image "$FULL_TARGET" "$VARIETY"
+    done
+else
+    # If not, build everything
+
+    #build_image base ubuntu_14.04
+    build_image base ubuntu_18.04
+    #build_image cpp_stl_11 gcc4.8_linux
+    #build_image cpp_stl_11 gcc7.5_linux
+    build_image ruby 2.5
+    #build_image python 2.7
+    build_image python 3.6
+    #build_image lua 5.3
+    #build_image csharp netcore3.0_linux
+    #build_image csharp mono5.18_linux
+    build_image javascript nodejs14
+fi
