@@ -5,53 +5,33 @@ require 'rspec'
 $LOAD_PATH << 'compiled/ruby'
 $LOAD_PATH << '../ruby/lib'
 
-require 'kaitai/compress/lz4'
-require 'kaitai/compress/lzma_xz'
-require 'kaitai/compress/zlib'
-require 'kaitai/compress/zstd'
+ALGORITHMS = [
+  {:alg_name => 'lz4', :ext => 'lz4', :class_name => 'TestLz4'},
+  {:alg_name => 'lzma_lzma', :ext => 'lzma', :class_name => 'TestLzmaLzma'},
+  {:alg_name => 'lzma_xz', :ext => 'xz', :class_name => 'TestLzmaXz'},
+  {:alg_name => 'zlib', :ext => 'zlib', :class_name => 'TestZlib'},
+  {:alg_name => 'zstd', :ext => 'zst', :class_name => 'TestZstd'},
+]
 
-require 'test_lz4'
-require 'test_lzma_xz'
-require 'test_zlib'
-require 'test_zstd'
+ALGORITHMS.each { |alg|
+  name = alg[:alg_name]
+
+  require "kaitai/compress/#{name}"
+  require "test_#{name}"
+  alg[:class] = Kernel::const_get(alg[:class_name])
+}
 
 Dir.glob('uncompressed/*.dat').each { |uncompressed_fn|
   name = File.basename(uncompressed_fn).gsub(/.dat$/, '')
 
   uncompressed_data = File.binread(uncompressed_fn)
 
-  context 'lz4' do
-    it "parses #{name}" do
-      obj = TestLz4.from_file("compressed/#{name}.lz4")
-      expect(obj.body).to eq uncompressed_data
+  ALGORITHMS.each { |alg|
+    context alg[:ext] do
+      it "algorithm parses #{name}" do
+        obj = alg[:class].from_file("compressed/#{name}.#{alg[:ext]}")
+        expect(obj.body).to eq uncompressed_data
+      end
     end
-  end
-
-  context 'zlib' do
-    it "parses #{name}" do
-      obj = TestZlib.from_file("compressed/#{name}.zlib")
-      expect(obj.body).to eq uncompressed_data
-    end
-  end
-
-  context 'lzma_xz' do
-    it "parses #{name}" do
-      obj = TestLzmaXz.from_file("compressed/#{name}.xz")
-      expect(obj.body).to eq uncompressed_data
-    end
-  end
-
-  context 'lzma_lzma' do
-    it "parses #{name}" do
-      obj = TestLzmaLzma.from_file("compressed/#{name}.lzma")
-      expect(obj.body).to eq uncompressed_data
-    end
-  end
-
-  context 'zstd' do
-    it "parses #{name}" do
-      obj = TestZstd.from_file("compressed/#{name}.zst")
-      expect(obj.body).to eq uncompressed_data
-    end
-  end
+  }
 }
