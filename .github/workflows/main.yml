@@ -32,7 +32,7 @@ jobs:
         with:
           context: _test/docker/base/ubuntu_18.04
           file: _test/docker/base/ubuntu_18.04/Dockerfile
-          tags: name/kaitai-compress-test-base-ubuntu_18.04:latest
+          tags: kaitai/kaitai-compress-test-base-ubuntu_18.04:latest
           outputs: type=oci,dest=/tmp/kaitai-compress-test-base-ubuntu_18.04.tar
       - name: Upload base-ubuntu_18.04
         uses: actions/upload-artifact@v2
@@ -79,6 +79,8 @@ jobs:
           path: /tmp # downloads /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
       - name: Load base-ubuntu_18.04
         run: docker load --input /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
+      - name: List images
+        run: docker images
       - name: Build Docker image for javascript/nodejs14
         working-directory: _test/docker
         run: DOCKER_ENGINE=docker ./build-images javascript/nodejs14
