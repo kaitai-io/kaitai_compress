@@ -24,16 +24,23 @@ jobs:
         with:
           name: targets
           path: _test/compiled
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: kaitai/kaitai-compress-test-base-ubuntu_18.04
       - name: Build and export base-ubuntu_18.04
         uses: docker/build-push-action@v2
         with:
           context: _test/docker/base/ubuntu_18.04
           file: _test/docker/base/ubuntu_18.04/Dockerfile
-          tags: kaitai/kaitai-compress-test-base-ubuntu_18.04:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           outputs: type=oci,dest=/tmp/kaitai-compress-test-base-ubuntu_18.04.tar
+      - name: List images
+        run: docker images
       - name: Upload base-ubuntu_18.04
         uses: actions/upload-artifact@v2
         with:
