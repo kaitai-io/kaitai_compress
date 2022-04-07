@@ -3,4 +3,4 @@ meta:
 seq:
   - id: body
     size-eos: true
-    process: kaitai.compress.lzma_raw
+    process: kaitai.compress.lzma(2, 9, "raw")

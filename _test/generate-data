@@ -4,7 +4,7 @@ for I in uncompressed/*.dat; do
 	BASE=$(basename "$I" | sed 's/\.dat$//')
 
 	echo "$BASE.lz4"
-	lz4 -9 <$I >compressed/$BASE.lz4
+	lz4 --best -BD <$I >compressed/$BASE.lz4
 
 	echo "$BASE.zlib"
 	ruby -e 'require "zlib"; $stdout.write(Zlib::deflate($stdin.read))' <$I >compressed/$BASE.zlib
@@ -22,7 +22,7 @@ for I in uncompressed/*.dat; do
 	zstd --ultra -22 -f -o compressed/$BASE.zst --format=zstd $I
 
 	echo "$BASE.br"
-	brotli <$I -o compressed/$BASE.br
+	brotli -f -o compressed/$BASE.br $I
 
 	echo "$BASE.raw.sz"
 	python3 -c "import sys, snappy; from pathlib import Path; i = Path(sys.argv[1]); o = Path(sys.argv[2]); o.write_bytes(snappy.compress(i.read_bytes()));" $I compressed/$BASE.raw.sz
@@ -32,4 +32,13 @@ for I in uncompressed/*.dat; do
 
 	echo "$BASE.hadoop.sz"
 	python3 -c "import sys, snappy; from pathlib import Path; i = Path(sys.argv[1]).open('rb'); o = Path(sys.argv[2]).open('wb'); snappy.hadoop_stream_compress(i, o); i.close(); o.close();" $I compressed/$BASE.hadoop.sz
+
+	echo "$BASE.lzham"
+	lzhamtest -m4 -d29 -u -x -o -e -h0 c $I compressed/$BASE.lzham
+
+	echo "$BASE.binary.implode"  # no official extension
+	python3 -c "import sys, pkimplode; from pathlib import Path; i = Path(sys.argv[1]).open('rb'); o = Path(sys.argv[2]).open('wb'); pkimplode.compressStreamToStream(i, o, compressionType=pkimplode.CompressionType.binary, dictionarySize=4096); i.close(); o.close();" $I compressed/$BASE.binary.implode
+
+	echo "$BASE.ascii.implode"  # no official extension
+	python3 -c "import sys, pkimplode; from pathlib import Path; i = Path(sys.argv[1]).open('rb'); o = Path(sys.argv[2]).open('wb'); pkimplode.compressStreamToStream(i, o, compressionType=pkimplode.CompressionType.ascii, dictionarySize=4096); i.close(); o.close();" $I compressed/$BASE.ascii.implode
 done
