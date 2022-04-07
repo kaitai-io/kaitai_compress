@@ -32,4 +32,8 @@ for I in uncompressed/*.dat; do
 
 	echo "$BASE.hadoop.sz"
 	python3 -c "import sys, snappy; from pathlib import Path; i = Path(sys.argv[1]).open('rb'); o = Path(sys.argv[2]).open('wb'); snappy.hadoop_stream_compress(i, o); i.close(); o.close();" $I compressed/$BASE.hadoop.sz
+
+	echo "$BASE.lzham"
+	# https://github.com/richgel999/lzham_codec/blob/master/lzhamtest/lzhamtest.cpp
+	lzhamtest -m4 -d29 -u -x -o -e -h0 c $I compressed/$BASE.lzham
 done
