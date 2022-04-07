@@ -4,7 +4,7 @@ for I in uncompressed/*.dat; do
 	BASE=$(basename "$I" | sed 's/\.dat$//')
 
 	echo "$BASE.lz4"
-	lz4 -9 <$I >compressed/$BASE.lz4
+	lz4 --best -BD <$I >compressed/$BASE.lz4
 
 	echo "$BASE.zlib"
 	ruby -e 'require "zlib"; $stdout.write(Zlib::deflate($stdin.read))' <$I >compressed/$BASE.zlib
