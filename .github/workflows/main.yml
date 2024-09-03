@@ -76,12 +76,12 @@ jobs:
         with:
           submodules: true
       - name: Download target language compilation results
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: targets
           path: _test/compiled
       - name: Download base-ubuntu_18.04
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: base-ubuntu_18.04
           path: /tmp # downloads /tmp/kaitai-compress-test-base-ubuntu_18.04.tar
