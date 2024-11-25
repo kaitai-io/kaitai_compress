@@ -32,4 +32,10 @@ for I in uncompressed/*.dat; do
 
 	echo "$BASE.hadoop.sz"
 	python3 -c "import sys, snappy; from pathlib import Path; i = Path(sys.argv[1]).open('rb'); o = Path(sys.argv[2]).open('wb'); snappy.hadoop_stream_compress(i, o); i.close(); o.close();" $I compressed/$BASE.hadoop.sz
+
+	echo "$BASE.binary.implode"  # no official extension
+	python3 -c "import sys, pkimplode; from pathlib import Path; i = Path(sys.argv[1]).open('rb'); o = Path(sys.argv[2]).open('wb'); pkimplode.compressStreamToStream(i, o, compressionType=pkimplode.CompressionType.binary, dictionarySize=4096); i.close(); o.close();" $I compressed/$BASE.binary.implode
+
+	echo "$BASE.ascii.implode"  # no official extension
+	python3 -c "import sys, pkimplode; from pathlib import Path; i = Path(sys.argv[1]).open('rb'); o = Path(sys.argv[2]).open('wb'); pkimplode.compressStreamToStream(i, o, compressionType=pkimplode.CompressionType.ascii, dictionarySize=4096); i.close(); o.close();" $I compressed/$BASE.ascii.implode
 done
